@@ -12,6 +12,7 @@
       <tr>
         <th scope="row"><%= i %></th>
         <td><%= post.title %></td>
+        <td><%= image_tag post.image.thumb.url %></td>
         <td>
           <%= link_to "詳細", post %>
           <%= link_to "編集", edit_post_path(post) %>
