@@ -21,6 +21,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     "/images/fallback/" + [version_name, "default.jpg"].compact.join('_')
   end
 
+  process convert: "jpg"
   process resize_to_limit: [200, 300]
 
   # Process files as they are uploaded:
@@ -50,8 +51,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  #def filename
+  #  "#{secure_token}.#{file.extension}" if original_filename.present?
+  #end
+
   def filename
-    "#{secure_token}.#{file.extension}" if original_filename.present?
+    super.chomp(File.extname(super)) + ".jpg" if original_filename.present?
   end
 
   protected
